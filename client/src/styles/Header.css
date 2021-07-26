@@ -63,6 +63,9 @@
     color: #fff;
 }
 .header__basket__count {
-    margin-left: 10px;
-    margin-right: 10px;
+    position: relative;
+    top: -17px;
+    left: -23px;
+    font-size: 20px;
+    color: #f0ae4b;
 }

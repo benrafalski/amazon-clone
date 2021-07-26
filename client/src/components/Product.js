@@ -1,7 +1,24 @@
 import '../styles/Product.css'
 import StarTwoToneIcon from '@material-ui/icons/StarTwoTone';
+import { useStateValue } from '../StateProvider';
 
-const Product = ({ title, price, rating, image }) => {    
+const Product = ({ title, price, rating, image }) => {   
+    const [{ cart }, dispatch] = useStateValue() 
+
+    const addToCart = () => {
+        //dispatch some action, item into data layer
+        dispatch({
+            type: 'ADD_TO_CART',
+            item: {
+                title: title,
+                price: price,
+                rating : rating,
+                image: image,
+            },
+        })
+
+    }
+
     return (
         <div className='product'>
             <div className='product__info'>
@@ -19,7 +36,7 @@ const Product = ({ title, price, rating, image }) => {
                 </div>
             </div>
             <img src={image}/>
-            <button>Add to Basket</button>
+            <button onClick={addToCart}>Add to Basket</button>
         </div>
     )
 }

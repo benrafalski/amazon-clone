@@ -1,6 +1,6 @@
 import '../styles/Header.css'
 import SearchIcon from '@material-ui/icons/Search'
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket'
+import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined'
 import { Link } from 'react-router-dom'
 
 const Header = () => {
@@ -31,7 +31,7 @@ const Header = () => {
                 </div>
                 <Link to='/checkout' style={{ textDecoration: 'none' }}>
                     <div className='header__option__basket'>
-                        <ShoppingBasketIcon/>
+                        <ShoppingCartOutlinedIcon fontSize='large'/>
                         <span className='header__option__line__two header__basket__count'>0</span>
                     </div>
                 </Link>
