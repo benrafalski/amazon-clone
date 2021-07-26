@@ -2,7 +2,7 @@ import '../styles/Product.css'
 import StarTwoToneIcon from '@material-ui/icons/StarTwoTone';
 import { useStateValue } from '../StateProvider';
 
-const Product = ({ title, price, rating, image }) => {   
+const Product = ({ id, title, price, rating, image }) => {   
     const [{ cart }, dispatch] = useStateValue() 
 
     const addToCart = () => {
@@ -10,6 +10,7 @@ const Product = ({ title, price, rating, image }) => {
         dispatch({
             type: 'ADD_TO_CART',
             item: {
+                id: id,
                 title: title,
                 price: price,
                 rating : rating,
@@ -36,7 +37,7 @@ const Product = ({ title, price, rating, image }) => {
                 </div>
             </div>
             <img src={image}/>
-            <button onClick={addToCart}>Add to Basket</button>
+            <button onClick={addToCart}>Add to Cart</button>
         </div>
     )
 }
