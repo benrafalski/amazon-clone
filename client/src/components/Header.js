@@ -1,14 +1,17 @@
 import '../styles/Header.css'
 import SearchIcon from '@material-ui/icons/Search'
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
     return (
         <div className='header'>
-            <img
-                className='header__logo' 
-                src='https://www.mabaya.com/wp-content/uploads/2019/10/amazon_PNG25.png'
-            />
+            <Link to='/'>
+                <img
+                    className='header__logo' 
+                    src='https://www.mabaya.com/wp-content/uploads/2019/10/amazon_PNG25.png'
+                />
+            </Link>
             <div className='header__search'>
                 <input className='header__search__input' type='text'/>
                 <SearchIcon className='header__search__icon'/>
@@ -26,10 +29,12 @@ const Header = () => {
                     <span className='header__option__line__one'>Your</span>
                     <span className='header__option__line__two'>Prime</span>
                 </div>
-                <div className='header__option__basket'>
-                    <ShoppingBasketIcon/>
-                    <span className='header__option__line__two header__basket__count'>0</span>
-                </div>
+                <Link to='/checkout' style={{ textDecoration: 'none' }}>
+                    <div className='header__option__basket'>
+                        <ShoppingBasketIcon/>
+                        <span className='header__option__line__two header__basket__count'>0</span>
+                    </div>
+                </Link>
             </div>
         </div>
     )
