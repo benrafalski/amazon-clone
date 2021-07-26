@@ -2,8 +2,12 @@ import '../styles/Header.css'
 import SearchIcon from '@material-ui/icons/Search'
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined'
 import { Link } from 'react-router-dom'
+import { useStateValue } from '../StateProvider'
 
 const Header = () => {
+    const [{ cart, user }, dispatch] = useStateValue()
+
+
     return (
         <div className='header'>
             <Link to='/'>
@@ -32,7 +36,7 @@ const Header = () => {
                 <Link to='/checkout' style={{ textDecoration: 'none' }}>
                     <div className='header__option__basket'>
                         <ShoppingCartOutlinedIcon fontSize='large'/>
-                        <span className='header__option__line__two header__basket__count'>0</span>
+                        <span className='header__option__line__two header__basket__count'>{cart?.length}</span>
                     </div>
                 </Link>
             </div>
