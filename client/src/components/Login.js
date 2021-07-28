@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import '../styles/Login.css'
 import axios from '../axios.js'
 
 const Login = ({ setCurrentUser, user }) => {
+    const history = useHistory()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [users, setUsers] = useState([])
@@ -29,6 +30,7 @@ const Login = ({ setCurrentUser, user }) => {
                 if(users[i].password === password){
                     setCurrentUser(users[i])
                     console.log('Signed in successfully')
+                    history.push('/')
                     return
                 }else{
                     alert('incorrect password...try again')
@@ -48,6 +50,8 @@ const Login = ({ setCurrentUser, user }) => {
             }
         }
         addUser()
+        setCurrentUser({ email: email, password: password })
+        history.push('/')
     }
 
     return (
