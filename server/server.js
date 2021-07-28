@@ -1,8 +1,12 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const User = require('./models/User.js')
+const Users = require('./models/User.js')
 
 const app = express()
 const port = process.env.PORT || 8000
+
+app.use(express.json()) // body parser for json
 
 const connectionURL = 'mongodb://localhost/amazon-clone'
 mongoose.connect(connectionURL, {
@@ -27,7 +31,21 @@ app.get('/', (req, res) => {
 })
 
 app.get('/users', (req, res) => {
-    
+    Users.find((err, data) => {
+        err 
+            ? res.status(500).send(err)
+            : res.status(200).send(data)
+    })
+})
+
+app.post('/users', (req, res) => {
+    const dbUser = req.body;
+
+    Users.create(dbUser, (err, data) => {
+        err
+            ? res.status(500).send(err)
+            : res.status(201).send(data)
+    })
 })
 
 app.listen(port, () => {
