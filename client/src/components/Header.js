@@ -4,8 +4,8 @@ import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined'
 import { Link } from 'react-router-dom'
 import { useStateValue } from '../StateProvider'
 
-const Header = () => {
-    const [{ cart, user }, dispatch] = useStateValue()
+const Header = ({ user }) => {
+    const [{ cart }, dispatch] = useStateValue()
 
 
     return (
@@ -23,7 +23,7 @@ const Header = () => {
             <div className='header__nav'>
             <Link to='/login' style={{ textDecoration: 'none' }}>
                 <div className='header__option'>
-                    <span className='header__option__line__one'>Hello Guest</span>
+                    <span className='header__option__line__one'>Hello { user.email ? user.email : 'Guest'}</span>
                     <span className='header__option__line__two' style={{ textDecoration: 'none' }}>Sign In</span>
                 </div>
             </Link>

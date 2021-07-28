@@ -1,18 +1,53 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/Login.css'
+import axios from '../axios.js'
 
-const Login = () => {
+const Login = ({ setCurrentUser, user }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [users, setUsers] = useState([])
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            const res = await axios.get('/users')
+            setUsers(res.data)
+            //console.log(users)
+        }
+
+        fetchUsers()
+    }, [])
+
+    const addUser = async () => {
+        const res = await axios.post('/users', { email: email, password: password })
+    }
 
     const signIn = (e) => {
         e.preventDefault()
-
+        for(let i = 0; i < users.length; i++){
+            if(users[i].email === email){
+                if(users[i].password === password){
+                    setCurrentUser(users[i])
+                    console.log('Signed in successfully')
+                    return
+                }else{
+                    alert('incorrect password...try again')
+                    return
+                }
+            }
+        }
+        alert('email is not registered')
     }
 
     const register = (e) => {
         e.preventDefault()
+        for(let i = 0; i < users.length; i++){
+            if(users[i].email === email){
+                alert('Email already registered! Try signing in')
+                return
+            }
+        }
+        addUser()
     }
 
     return (
