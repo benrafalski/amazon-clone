@@ -26,6 +26,10 @@ app.get('/', (req, res) => {
     res.status(200).send('amazon-clone')
 })
 
+app.get('/users', (req, res) => {
+    
+})
+
 app.listen(port, () => {
     console.log(`listening on localhost ${port}`)
 })
