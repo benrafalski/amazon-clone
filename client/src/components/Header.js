@@ -1,11 +1,19 @@
 import '../styles/Header.css'
 import SearchIcon from '@material-ui/icons/Search'
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useStateValue } from '../StateProvider'
 
-const Header = ({ user }) => {
-    const [{ cart }, dispatch] = useStateValue()
+const Header = ({ setCurrentUser }) => {
+    const history = useHistory()
+    const [{ cart, user }, dispatch] = useStateValue()
+
+    const handleLogin = () => {
+        if(user){
+            setCurrentUser({})
+        }
+        history.push('/')
+    }
 
 
     return (
@@ -21,10 +29,10 @@ const Header = ({ user }) => {
                 <SearchIcon className='header__search__icon'/>
             </div>
             <div className='header__nav'>
-            <Link to='/login' style={{ textDecoration: 'none' }}>
-                <div className='header__option'>
-                    <span className='header__option__line__one'>Hello { user.email ? user.email : 'Guest'}</span>
-                    <span className='header__option__line__two' style={{ textDecoration: 'none' }}>Sign In</span>
+            <Link to={user ? '/' : '/login'} style={{ textDecoration: 'none' }}>
+                <div className='header__option' onClick={handleLogin}>
+                    <span className='header__option__line__one'>Hello { user ? user.email : 'Guest' }</span>
+                    <span className='header__option__line__two' style={{ textDecoration: 'none' }}>Sign { user ? 'Out' : 'In' }</span>
                 </div>
             </Link>
                 <div className='header__option'>
