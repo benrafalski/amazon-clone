@@ -6,6 +6,7 @@ import Checkout from './components/Checkout';
 import Login from './components/Login';
 import { useEffect, useState } from 'react';
 import { useStateValue } from './StateProvider';
+import Payment from './components/Payment';
 
 function App() {
   const [currentUser, setCurrectUser] = useState({})
@@ -37,6 +38,10 @@ function App() {
           <Route path='/checkout'>
             <Header setCurrentUser={setCurrectUser}/>
             <Checkout/>
+          </Route>
+          <Route path='/payment'>
+            <Header/>
+            <Payment/>
           </Route>
           <Route path='/'>
             <Header setCurrentUser={setCurrectUser}/>
