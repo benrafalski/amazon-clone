@@ -7,6 +7,10 @@ import Login from './components/Login';
 import { useEffect, useState } from 'react';
 import { useStateValue } from './StateProvider';
 import Payment from './components/Payment';
+import { loadStripe } from '@stripe/stripe-js'
+import { Elements } from '@stripe/react-stripe-js'
+
+const promise = loadStripe('pk_test_51JIbRbCeYChu5FtFxmKzrGPN37zOOG1SxSyniY1TuMH9aDD8MaOPKfNpzhaK4JWdUxD4W3QdJVJ5nl0AeeClzYCa00vGOmvQsl')
 
 function App() {
   const [currentUser, setCurrectUser] = useState({})
@@ -41,7 +45,9 @@ function App() {
           </Route>
           <Route path='/payment'>
             <Header/>
-            <Payment/>
+            <Elements stripe={promise}>
+              <Payment/>
+            </Elements>
           </Route>
           <Route path='/'>
             <Header setCurrentUser={setCurrectUser}/>
