@@ -7,8 +7,10 @@ import { useStateValue } from '../StateProvider'
 import '../styles/Payment.css'
 import CheckoutProduct from './CheckoutProduct'
 import axios from '../axios.js'
+import { useHistory } from 'react-router'
 
 const Payment = () => {
+    const history = useHistory()
     const [{ cart, user }, dispatch] = useStateValue()
     const [error, setError] = useState(null)
     const [processing, setProcessing] = useState('')
@@ -78,7 +80,7 @@ const Payment = () => {
                         <h3>Review Items and Delivery</h3>
                     </div>
                     <div className='payment__items'>
-                        {cart.map((item) => (
+                        {cart.length > 0 ? (cart.map((item) => (
                             <CheckoutProduct
                                 id={item.id}
                                 title={item.title}
@@ -86,7 +88,7 @@ const Payment = () => {
                                 price={item.price}
                                 rating={item.rating}
                             />
-                        ))}
+                        ))) : <p>No Items In Cart</p>}
                     </div>
                 </div>
                 <div className='payment__section'>

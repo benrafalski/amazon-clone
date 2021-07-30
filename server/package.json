@@ -9,7 +9,9 @@
   "author": "Ben Rafalski",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mongoose": "^5.13.3"
+    "mongoose": "^5.13.3",
+    "stripe": "^8.167.0"
   }
 }
