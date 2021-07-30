@@ -23,12 +23,18 @@ const Payment = () => {
     useEffect(() => {
         const getClientSecret = async () => {
             // stripe expects payment method in cents
-            const res = await axios.post(`/payments/create?total=${getCartTotal(cart) * 100}`)
-            setClientSecret(res.data.clientSecret)
+            try {
+                const res = await axios.post('/payments/create', { total: Math.ceil(getCartTotal(cart) * 100) })
+                setClientSecret(res.data.clientSecret)
+            } catch(err){
+                console.log(err)
+            }
         }
 
         getClientSecret()
     }, [cart])
+
+    console.log(clientSecret)
 
     const handleSubmit = async (e) => {
         // stipe stuff here 
