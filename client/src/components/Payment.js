@@ -20,6 +20,11 @@ const Payment = () => {
     const stripe = useStripe()
     const elements = useElements()
 
+    //console.log({ email: (user ? user.email : 'Guest-Purchase'), amount: getCartTotal(cart) ,cart: cart ,created: 'gg' ,clientSecret: clientSecret})
+    const addOrder = async ( paymentCreated ) => {
+        const res = await axios.post('/orders', { email: (user ? user.email : 'Guest-Purchase'), amount: getCartTotal(cart) ,cart: cart ,created: paymentCreated ,clientSecret: clientSecret})
+    }
+
     useEffect(() => {
         const getClientSecret = async () => {
             // stripe expects payment method in cents
@@ -34,7 +39,8 @@ const Payment = () => {
         getClientSecret()
     }, [cart])
 
-    console.log(clientSecret)
+    //console.log(clientSecret)
+    //console.log(cart[0].id)
 
     const handleSubmit = async (e) => {
         // stipe stuff here 
@@ -46,15 +52,28 @@ const Payment = () => {
                 card: elements.getElement(CardElement)
             }
         }).then(({ paymentIntent }) => {
+            //console.log(paymentIntent.created)
             // payment intent = payment confirmation
+            // db.collection('users').doc(user?.id).collection('orders').doc(paymentIntent.id).set({
+            //     cart: cart,
+            //     amount: paymentIntent.amount,
+            //     created: paymentIntent.created
+            // })
+            addOrder(paymentIntent.created)
+
             setSucceeded(true)
             setError(null)
             setProcessing(false)
+
+            dispatch({
+                type: 'EMPTY_CART'
+            })
 
             history.replace('/orders')
         }) 
     }
 
+    //console.log({ email: user?.email, amount: getCartTotal(cart) ,cart: cart ,created: 'hi' ,clientSecret: clientSecret})
     const handleChange = (e) => {
         // listen for changes in card element
         // display any errors as the customer types thier card details
@@ -86,7 +105,7 @@ const Payment = () => {
                         <h3>Review Items and Delivery</h3>
                     </div>
                     <div className='payment__items'>
-                        {cart.length > 0 ? (cart.map((item) => (
+                        {cart.length > 0 ? (cart?.map((item) => (
                             <CheckoutProduct
                                 id={item.id}
                                 title={item.title}
@@ -116,7 +135,7 @@ const Payment = () => {
                                     prefix={'$'}
                                 />
                                 <button disabled={processing || disabled || succeeded}>
-                                    <span>{processing ? <p>Processing</p> : 'Buy Now'}</span>
+                                    <span>{processing ? <p>Processing...</p> : 'Buy Now'}</span>
                                 </button>
                             </div>
                             {error && <div>{error}</div>}

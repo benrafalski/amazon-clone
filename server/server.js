@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const stripe = require('stripe')('sk_test_51JIbRbCeYChu5FtFnHRRu5AMFleCNJEp08fUvGQYbxgQTm8D9kCXYaPZj1TXyTMOwyhEuTBtzFWHKikcOnXcYKj4003g9Dfe0j')
 const Users = require('./models/User.js')
+const Orders = require('./models/Order.js')
 
 const app = express()
 const port = process.env.PORT || 8000
@@ -50,6 +51,25 @@ app.post('/users', (req, res) => {
     const dbUser = req.body;
 
     Users.create(dbUser, (err, data) => {
+        err
+            ? res.status(500).send(err)
+            : res.status(201).send(data)
+    })
+})
+
+app.get('/orders', (req, res) => {
+    Orders.find((err, data) => {
+        err 
+            ? res.status(500).send(err)
+            : res.status(200).send(data)
+    })
+})
+
+app.post('/orders', (req, res) => {
+    const dbOrder = req.body;
+    console.log(req.body)
+
+    Orders.create(dbOrder, (err, data) => {
         err
             ? res.status(500).send(err)
             : res.status(201).send(data)
