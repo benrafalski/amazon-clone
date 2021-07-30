@@ -19,7 +19,7 @@ const Payment = () => {
     const [clientSecret, setClientSecret] = useState(true)
     const stripe = useStripe()
     const elements = useElements()
- 
+
     useEffect(() => {
         const getClientSecret = async () => {
             // stripe expects payment method in cents

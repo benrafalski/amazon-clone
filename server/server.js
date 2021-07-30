@@ -60,7 +60,7 @@ app.post('/payments/create', async (req, res) => {
     const total = req.body.total
     console.log('Payment Request Recieved', total)
 
-    try{
+    try {
         const paymentIntent = await stripe.paymentIntents.create({
             amount: total ? total : 0.50 * 100, // in cents***
             currency: 'usd'
