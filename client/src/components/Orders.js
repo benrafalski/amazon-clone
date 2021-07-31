@@ -15,7 +15,6 @@ const Orders = () => {
             const fetchOrder = async () => {
                 const res = await axios.get(`/orders/${user.email}`)
                 setOrders(res.data)
-                console.log(res.data)
             }
     
             fetchOrder()
@@ -28,7 +27,11 @@ const Orders = () => {
         <div className='orders'>
             <h1>Your Orders</h1>
             <div className='orders__order'>
-                { user ? <Order order={orders}/> : <p>Please sign in to view orders</p>}
+                { user 
+                    ? (orders?.map(order => (
+                        <Order order={order}/>
+                    ))) 
+                    : <p>Please sign in to view orders</p>}
             </div>
         </div>
     )
