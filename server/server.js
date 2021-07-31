@@ -2,12 +2,17 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const stripe = require('stripe')('sk_test_51JIbRbCeYChu5FtFnHRRu5AMFleCNJEp08fUvGQYbxgQTm8D9kCXYaPZj1TXyTMOwyhEuTBtzFWHKikcOnXcYKj4003g9Dfe0j')
+
+// models
 const Users = require('./models/User.js')
 const Orders = require('./models/Order.js')
 
+// app config
 const app = express()
 const port = process.env.PORT || 8000
 
+
+// middlewares
 app.use(express.json()) // body parser for json
 app.use(cors({ origin: true }))
 app.use((req, res, next) => {
@@ -17,6 +22,7 @@ app.use((req, res, next) => {
     next()
 })
 
+// mongoose config
 const connectionURL = 'mongodb://localhost/amazon-clone'
 mongoose.connect(connectionURL, {
     useNewUrlParser: true,
@@ -35,6 +41,7 @@ db.on('error', () => {
     console.log(err)
 })
 
+// routes
 app.get('/', (req, res) => {
     res.status(200).send('amazon-clone')
 })
@@ -108,6 +115,7 @@ app.post('/payments/create', async (req, res) => {
     }
 })
 
+// listener
 app.listen(port, () => {
     console.log(`listening on localhost ${port}`)
 })
