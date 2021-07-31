@@ -38,7 +38,7 @@ function App() {
       <div className="app">
         <Switch>
           <Route path='/orders'>
-            <Header/>
+            <Header setCurrentUser={setCurrectUser}/>
             <Orders/>
           </Route>
           <Route path='/login'>

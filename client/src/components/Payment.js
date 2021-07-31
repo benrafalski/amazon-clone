@@ -76,7 +76,8 @@ const Payment = () => {
             dispatch({
                 type: 'EMPTY_CART'
             })
-
+            
+            history.replace('/')
             history.replace('/orders')
         }) 
     }
