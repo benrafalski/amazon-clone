@@ -6,6 +6,21 @@ import CurrencyFormat from 'react-currency-format'
 const Order = ({ order }) => {
     return (
         <div className='order'>
+            <h3>Order:</h3>
+            <p>{moment.unix(order.created).format('MMMM Do YYYY, h:mma')}</p>
+            <p className='order__id'>
+                <small>{order.clientSecret}</small>
+            </p>
+            {order.cart?.map((item) => (
+                <CheckoutProduct
+                    id={item.id}
+                    title={item.title}
+                    image={item.image}
+                    price={item.price}
+                    rating={item.rating}
+                    hideButton={true}
+                />
+            ))}
             <CurrencyFormat
                 renderText={(value) => (
                     <>
@@ -18,19 +33,6 @@ const Order = ({ order }) => {
                 thousandSeparator={true}
                 prefix={'$'}
             />
-            <p>{moment.unix(order.created).format('MMMM Do YYYY, h:mma')}</p>
-            <p className='order__id'>
-                <small>{order.clientSecret}</small>
-            </p>
-            {order.cart?.map((item) => (
-                <CheckoutProduct
-                    id={item.id}
-                    title={item.title}
-                    image={item.image}
-                    price={item.price}
-                    rating={item.rating}
-                />
-            ))}
         </div>
     )
 }
