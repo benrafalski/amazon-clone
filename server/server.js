@@ -65,9 +65,20 @@ app.get('/orders', (req, res) => {
     })
 })
 
+app.get('/orders/:email', (req, res) => {
+    const dbOrder = req.params.email;
+    console.log(dbOrder)
+
+    Orders.findOne({ email: dbOrder }, (err, data) => {
+        err
+            ? res.status(500).send(err)
+            : res.status(200).send(data)
+    })
+})
+
 app.post('/orders', (req, res) => {
     const dbOrder = req.body;
-    console.log(req.body)
+    //console.log(req.body)
 
     Orders.create(dbOrder, (err, data) => {
         err

@@ -22,14 +22,22 @@ const Payment = () => {
 
     //console.log({ email: (user ? user.email : 'Guest-Purchase'), amount: getCartTotal(cart) ,cart: cart ,created: 'gg' ,clientSecret: clientSecret})
     const addOrder = async ( paymentCreated ) => {
-        const res = await axios.post('/orders', { email: (user ? user.email : 'Guest-Purchase'), amount: getCartTotal(cart) ,cart: cart ,created: paymentCreated ,clientSecret: clientSecret})
+        const res = await axios.post('/orders', { 
+            email: (user ? user.email : 'Guest-Purchase'), 
+            amount: getCartTotal(cart) ,
+            cart: cart ,
+            created: paymentCreated ,
+            clientSecret: clientSecret
+        })
     }
 
     useEffect(() => {
         const getClientSecret = async () => {
             // stripe expects payment method in cents
             try {
-                const res = await axios.post('/payments/create', { total: Math.ceil(getCartTotal(cart) * 100) })
+                const res = await axios.post('/payments/create', { 
+                    total: Math.ceil(getCartTotal(cart) * 100) 
+                })
                 setClientSecret(res.data.clientSecret)
             } catch(err){
                 console.log(err)

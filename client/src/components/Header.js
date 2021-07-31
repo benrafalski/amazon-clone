@@ -35,10 +35,12 @@ const Header = ({ setCurrentUser }) => {
                     <span className='header__option__line__two' style={{ textDecoration: 'none' }}>Sign { user ? 'Out' : 'In' }</span>
                 </div>
             </Link>
+                <Link to='/orders' style={{ textDecoration: 'none' }}>
                 <div className='header__option'>
                     <span className='header__option__line__one'>Returns</span>
                     <span className='header__option__line__two'>& Orders</span>
                 </div>
+                </Link>
                 <div className='header__option'>
                     <span className='header__option__line__one'>Your</span>
                     <span className='header__option__line__two'>Prime</span>
